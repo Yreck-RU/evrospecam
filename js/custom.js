@@ -190,7 +190,7 @@ let _slideToggle = (target, duration = 500) => {
 	}
 }
 //==================================================================================================================================================
-//Спойлеры - "Начало"
+//Спойлеры - "Конец"
 //==================================================================================================================================================
 
 
@@ -237,7 +237,7 @@ function lazyScrollCheck() {
 	}
 }
 //==================================================================================================================================================
-//Линивая загрусска - "Начало"
+//Линивая загрусска - "Конец"
 //==================================================================================================================================================
 
 
@@ -256,7 +256,7 @@ if (toUncover) {
 }
 
 //==================================================================================================================================================
-//Блок раскрыть - "Начало"
+//Блок раскрыть - "Конец"
 //==================================================================================================================================================
 
 
@@ -299,5 +299,211 @@ var postSlaiderTwo = new Swiper("._post-slaider-two", {
 });
 
 //==================================================================================================================================================
-//Слайдеры - "Начало"
+//Слайдеры - "Конец"
+//==================================================================================================================================================
+
+
+
+//==================================================================================================================================================
+//Формы - "Начало"
+//==================================================================================================================================================
+
+document.addEventListener("DOMContentLoaded", function () {
+	const forms = document.querySelectorAll("._form");
+
+	for (let i = 0; i < forms.length; i++) {
+		let form = forms[i];
+
+		form.addEventListener("submit", function (e) {
+			e.preventDefault();
+			let error = formValidate(form);
+
+			if (error === 0) {
+				form.submit();
+			}
+		});
+
+		let formFeqInputs = form.querySelectorAll("._req");
+
+		for (let i = 0; i < formFeqInputs.length; i++) {
+			let formFeqInput = formFeqInputs[i];
+
+			formFeqInput.parentElement.addEventListener( 'click', (e) => {
+				for (let i = 0; i < formFeqInputs.length; i++) {
+					let formFeqInput = formFeqInputs[i];
+					if (formFeqInput.classList.contains('_error')) {
+						formRemoveError(formFeqInput);
+					}
+				}
+			})
+		}
+
+		function formValidate(form) {
+			let error = 0;
+			let formFeq = form.querySelectorAll("._req");
+
+			for (var i = 0; i < formFeq.length; i++) {
+				let input = formFeq[i];
+				formRemoveError(input);
+
+				if (input.classList.contains('_email')) {
+					if (emailTest(input)) {
+						formAddError(input);
+						error++;
+					}
+				} else if (input.getAttribute("type") === "checkbox" && input.checked === false) {
+					formAddError(input);
+					error++;
+				} else if (input.getAttribute("type") === "tel" && input.value != '') {
+					if (!nomerTest(input.value)) {
+						formAddError(input);
+						error++
+					}
+				} else if (input.value === '') {
+					formAddError(input);
+					error++;
+				}
+			}
+
+			return error;
+		}
+
+		function formAddError(input) {
+			input.parentElement.classList.add("_error");
+			input.classList.add("_error");
+		}
+		function formRemoveError(input) {
+			input.parentElement.classList.remove("_error");
+			input.classList.remove("_error");
+		}
+		function emailTest(input) {
+			return !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,8})+$/.test(input.value);
+		}
+		function nomerTest(nomer) {
+			if (true) {
+				if (nomer[0] === "8" && nomer.length == 17) {
+					return true;
+				} else if (nomer[0] === "+" && nomerTestSimvol(nomer) === "7" && nomer.length > 17) {
+					return true;
+				}
+			}
+		}
+		function nomerTestSimvol(nomer) {
+			for (let i = 1; i < nomer.length; i++) {
+				let simvol = nomer[i];
+
+				if (+simvol > 0) {
+					return simvol;
+				}
+			}
+		}
+	}
+});
+//==================================================================================================================================================
+//Формы - "Конец"
+//==================================================================================================================================================
+
+
+
+//==================================================================================================================================================
+// Попвпы - "Начало"
+//==================================================================================================================================================
+
+
+const popupLinks = document.querySelectorAll('.popup-link');
+const body = document.querySelector('body');
+const lockPadding = document.querySelectorAll('.lock-padding');
+
+let unlock = true;
+
+const timeout = 500;
+
+if (popupLinks.length > 0) {
+	for (let i = 0; i < popupLinks.length; i++) {
+		const popupLink = popupLinks[i];
+		popupLink.addEventListener("click", function (e){
+			const popupName = popupLink.getAttribute('href').replace('#', '');
+			const curentPopup = document.getElementById(popupName);
+			popupOpen(curentPopup);
+			e.preventDefault();
+		});
+	}
+}
+
+const popupCloseIcon = document.querySelectorAll('.close-popup');
+if (popupCloseIcon.length > 0) {
+	for (let i = 0; i < popupCloseIcon.length; i++) {
+		const el = popupCloseIcon[i];
+		el.addEventListener('click', function (e){
+			popupClose(el.closest('.popup'));
+			e.preventDefault();
+		});
+	}
+}
+
+function popupOpen(curentPopup) {
+	if (curentPopup && unlock) {
+		const popupActive = document.querySelector('.popup.open');
+		if (popupActive) {
+			popupClose(popupActive, false);
+		} else {
+			bodyLock();
+		}
+		curentPopup.classList.add('open');
+		curentPopup.addEventListener("click", function (e) {
+			if (!e.target.closest('.popup__content')) {
+				popupClose(e.target.closest('.popup'));
+			}
+		});
+	}
+}
+
+function popupClose(popupActive, doUnlock = true) {
+	if (unlock) {
+		popupActive.classList.remove('open');
+		if (doUnlock) {
+			bodyUnlock();
+		}
+	}
+}
+
+function bodyLock() {
+	const lockPaddingValue = window.innerWidth - document.querySelector('.wrapper').offsetWidth + 'px';
+
+	if (lockPadding.length > 0) {
+		for (let i = 0; i < lockPadding.length; i++) {
+			const el = lockPadding[i];
+			el.style.paddingRight = lockPaddingValue;
+		}
+	}
+	body.style.paddingRight = lockPaddingValue;
+	body.classList.add('_lock');
+
+	unlock = false;
+	setTimeout(function () {
+		unlock = true;
+	}, timeout);
+}
+
+function bodyUnlock() {
+	setTimeout(function () {
+		if (lockPadding.length > 0) {
+			for (let i = 0; i < lockPadding.length; i++) {
+				const el = lockPadding[i];
+				el.style.paddingRight = '0px';
+			}
+		}
+		body.style.paddingRight = '0px';
+		body.classList.remove('_lock');
+	}, timeout);
+
+	unlock = false;
+	setTimeout(function () {
+		unlock = true;
+	}, timeout);
+}
+
+
+//==================================================================================================================================================
+// Попвпы - "Конец"
 //==================================================================================================================================================
