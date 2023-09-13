@@ -261,17 +261,27 @@ body {
     transform: translateY(-50%) rotate(0deg); }
 
 .post-list__body {
-  padding-top: 23.5px;
+  padding-top: 0px;
   padding-left: 21px;
   overflow: hidden;
   -webkit-transition: all 0.5s ease 0s;
   -o-transition: all 0.5s ease 0s;
   transition: all 0.5s ease 0s;
-  padding-bottom: 0px; }
-  .post-list__body._active {
-    padding-top: 0px; }
+  padding-bottom: 0px;
+  opacity: 0; }
   .post-list__body .post-list__link {
-    margin-bottom: 17px; }
+    margin-bottom: 0px;
+    height: 0;
+    overflow: hidden;
+    opacity: 0; }
+  .post-list__body._active {
+    padding-top: 23.5px;
+    opacity: 1;
+    height: auto; }
+  .post-list__body._active .post-list__link {
+    margin-bottom: 17px;
+    height: auto;
+    opacity: 1; }
   .post-list__body .post-list__link:last-child {
     margin-bottom: 0px; }
 
