@@ -319,6 +319,7 @@ if (toUncover) {
 var postSlaiderOne = new Swiper("._post-slaider-one", {
 	slidesPerView: 2,
 	spaceBetween: 30,
+	loop: true,
 	navigation: {
 		nextEl: ".post-slaider__button_right",
 		prevEl: ".post-slaider__button_left",
@@ -335,6 +336,7 @@ var postSlaiderOne = new Swiper("._post-slaider-one", {
 var postSlaiderTwo = new Swiper("._post-slaider-two", {
 	slidesPerView: 2,
 	spaceBetween: 30,
+	loop: true,
 	navigation: {
 		nextEl: ".post-slaider__button_right",
 		prevEl: ".post-slaider__button_left",

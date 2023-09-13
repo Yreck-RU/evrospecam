@@ -211,7 +211,8 @@ body {
   line-height: 20.80px;
   display: block;
   border-bottom: 0.5px dashed #444f60;
-  text-align: left; }
+  text-align: left;
+  display: inline-block; }
   @media (min-width: 1064px) {
     .post-list__link,
     .post-list__title {
@@ -1196,12 +1197,15 @@ body {
   font-size: 0;
   display: -webkit-box;
   display: -ms-flexbox;
-  display: flex; }
+  display: flex;
+  max-width: 80%;
+  margin: 0 !important;
+  overflow: visible; }
+  @media (max-width: 520px) {
+    .post-slaider__flex {
+      max-width: 100%; } }
 
 .post-slaider-blok {
-  -webkit-box-flex: 0;
-  -ms-flex: 0 0 40.5%;
-  flex: 0 0 40.5%;
   margin-right: 12px; }
   @media (max-width: 520px) {
     .post-slaider-blok {
@@ -1257,7 +1261,12 @@ body {
   cursor: pointer;
   z-index: 10; }
   .post-slaider__button.swiper-button-disabled {
-    pointer-events: none;
+    cursor: auto;
+    -webkit-transform: translateY(-50%) !important;
+    -ms-transform: translateY(-50%) !important;
+    transform: translateY(-50%) !important;
+    -webkit-box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0) !important;
+    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0) !important;
     opacity: 0.7; }
   @media (min-width: 1064px) {
     .post-slaider__button {
@@ -1286,9 +1295,9 @@ body {
 .post-slaider__button_right {
   right: 8px; }
   .post-slaider__button_right img {
-    -webkit-transform: rotate(180deg);
-    -ms-transform: rotate(180deg);
-    transform: rotate(180deg); }
+    -webkit-transform: rotate(180deg) !important;
+    -ms-transform: rotate(180deg) !important;
+    transform: rotate(180deg) !important; }
   @media (max-width: 520px) {
     .post-slaider__button_right {
       right: 1px; } }
@@ -1309,6 +1318,18 @@ body {
   margin-bottom: 16px;
   margin-top: 19px;
   line-height: 130%; }
+  @media (min-width: 1064px) {
+    .post-slaider-blok__title {
+      -webkit-transition: all 0.3s ease 0s;
+      -o-transition: all 0.3s ease 0s;
+      transition: all 0.3s ease 0s; }
+      .post-slaider-blok__title:hover {
+        color: #3062bf; }
+      .post-slaider-blok__title:active {
+        -webkit-transform: translateY(1px);
+        -ms-transform: translateY(1px);
+        transform: translateY(1px);
+        opacity: 0.8; } }
 
 .post-slaider-blok__footer {
   font-size: 0;
