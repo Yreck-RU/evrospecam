@@ -196,6 +196,57 @@ let _slideToggle = (target, duration = 500) => {
 
 
 //==================================================================================================================================================
+//Спойлеры меню - "Начало"
+//==================================================================================================================================================
+
+const spollersArrayMenu = document.querySelectorAll('._menu-spoilers');
+if (spollersArrayMenu.length > 0) {
+
+	for (let i = 0; i < spollersArrayMenu.length; i++) {
+		let spollerArray = spollersArrayMenu[i];
+		let spollerArrayUls = spollerArray.querySelectorAll('.post-list__body');
+		
+		for (let i = 0; i < spollerArrayUls.length; i++) {
+			let spollerArrayUl = spollerArrayUls[i];
+			const h = spollerArrayUl.clientHeight;
+			spollerArrayUl.classList.toggle('_active');
+			spollerArrayUl.style.height = 0 + "px";
+
+			let spollerArrayUlButton = spollerArrayUl.previousElementSibling;
+			spollerArrayUlButton.classList.add('_title');
+			spollerArrayUlButton.addEventListener("click", function (e) {
+				spollerArrayUlButton.classList.toggle('_active');
+				spollerArrayUl.classList.toggle('_active');
+				
+				if (spollerArrayUlButton.classList.contains('_active')) {
+					spollerArrayUl.style.height = h + "px";
+				} else {
+					spollerArrayUl.style.height = 0 + "px";
+				}
+			});
+			if (i == 0) {
+				spollerArrayUlButton.classList.toggle('_active');
+				spollerArrayUl.classList.toggle('_active');
+				
+				if (spollerArrayUlButton.classList.contains('_active')) {
+					spollerArrayUl.style.height = h + "px";
+				} else {
+					spollerArrayUl.style.height = 0 + "px";
+				}
+			}
+		}
+	}
+
+}
+
+//==================================================================================================================================================
+//Спойлеры меню - "Конец"
+//==================================================================================================================================================
+
+
+
+
+//==================================================================================================================================================
 //Линивая загрусска - "Начало"
 //==================================================================================================================================================
 const lazyImages = document.querySelectorAll('img[data-src], source[data-srcset]');
